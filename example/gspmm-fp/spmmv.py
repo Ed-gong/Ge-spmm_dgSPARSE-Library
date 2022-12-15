@@ -45,18 +45,16 @@ colind = idxs.to(device).int()
 #edge_feature = torch.from_numpy(np.ones((nnz, 1))).to(device).float()
 """
 
-nnz = colind.shape[0]
 n = rowptr.shape[0] - 1
 
-print("dim = ", n, nnz, k)
+print("dim = ", n, k)
 node_feature = torch.ones(n, k).to(device)
-edge_feature = torch.ones(nnz, 1).to(device)
 
 a = time.time()
 #ue = util.u_sub_e_sum(rowptr, colind, edge_feature, node_feature)
-ue = util.u_mul_e_sum(rowptr, colind, edge_feature, node_feature)
+ue = util.copy_u_sum(rowptr, colind, node_feature)
 torch.cuda.synchronize()
 b = time.time()
 time_our_ue = b-a
-print(f"running u_mul_e_sum our time is: {time_our_ue:.4f}")
+print(f"running copy_u_sum our time is: {time_our_ue:.4f}")
 print("result", ue)

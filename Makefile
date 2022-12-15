@@ -23,7 +23,7 @@ LIBRARY = -lcudart
 .PHONY: exp code clean
 
 $(TARGET): code
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $(OBJS) $(LOADPATH) $(LIBRARY)
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $(OBJS) $(LOADPATH)
 	mv $@ lib/
 
 code:
